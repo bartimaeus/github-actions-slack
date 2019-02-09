@@ -3,10 +3,6 @@
 set -e
 
 errorNotification() {
-  which jq || {
-    echo "~> Installing missing package jq"
-    apt update && apt install -y jq
-  }
   /notify.sh ":boom: *Failed* to deploy" "#ff5b5b"
 }
 

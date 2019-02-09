@@ -29,6 +29,12 @@ else
     PRETEXT=$1
 fi
 
+# Install missing dependency `jq`
+which jq || {
+  echo "~> Installing missing package jq"
+  apt update && apt install -y jq
+}
+
 # Set the default color to grey
 COLOR=${2:-"#cccccc"}
 
