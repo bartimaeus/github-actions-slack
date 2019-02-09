@@ -1,8 +1,0 @@
-version: "3.2"
-
-services:
-  github-actions-slack:
-    build: .
-    environment:
-      - GITHUB_EVENT_PATH=/event.json
-      - SLACK_WEBHOOK_URL=[REPLACE_WITH_VALID_WEBHOOK_URL]
