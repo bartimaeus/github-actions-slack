@@ -2,21 +2,16 @@
 
 set -e
 
-# Install nodejs
-apt update && apt-get install -y curl software-properties-common \
-  && curl -sL https://deb.nodesource.com/setup_11.x | bash - \
-  && apt update && apt install -y nodejs
-
-# Install github-actions-slack
-npm install -g github-actions-slack
-
-deploy() {
-  # bogus deployment scripts
-  exit 1
+errorNotification() {
+  which jq || {
+    echo "~> Installing missing package jq"
+    apt update && apt install -y jq
+  }
+  /notify.sh ":boom: *Failed* to deploy" "#ff5b5b"
 }
 
-error() {
-  github-actions-slack deploy failure
-}
+trap "errorNotification" ERR SIGINT SIGTERM
 
-deploy || error
+bogus_deployment_function
+
+echo "This will never happen!"

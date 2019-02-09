@@ -1,12 +1,12 @@
 # github-actions-slack
 
-This is a simple function that builds a formatted message using a GitHub Actions event similar to how Bitbucket Pipelines notifications work.
-
-Initially, I was using a bash script, but adding the Slack markdown in the pretext caused issues with the Slack API. So, I'm using node until I can troubleshoot the bash script more.
+This is a simple bash script that sends a formatted message using a GitHub Action event similar to how Bitbucket Pipelines notifications work.
 
 # Install
 
-    $ npm install github-actions-slack
+    $ curl -o /usr/local/bin/github-actions-slack https://raw.githubusercontent.com/bartimaeus/github-actions-slack/master/notify.sh
+
+    $ chmod +x /usr/local/bin/github-actions-slack
 
 # Usage
 
@@ -26,20 +26,30 @@ Next, include **github-actions-slack** in your custom GitHub Action `entrypoint.
 
 set -e
 
-# Install nodejs
-apt update && apt install -y nodejs
+## BEGIN github-actions-slack ##
+errorNotification() {
+  # Install jq
+  which jq || {
+    echo "~> Installing missing package jq"
+    apt update && apt install -y jq
+  }
 
-# Install github-actions-slack
-npm install -g github-actions-slack
+  # Install github-actions-slack
+  which github-actions-slack || {
+    echo "~> Installing github-actions-slack"
+    curl -o /usr/local/bin/github-actions-slack https://raw.githubusercontent.com/bartimaeus/github-actions-slack/master/notify.sh
+    chmod +x /usr/local/bin/github-actions-slack
+  }
 
-deploy() {
-  # deploy scripts
-  # ...
+  # Send Slack notification
+  github-actions-slack ":boom: *Failed* to deploy" "#ff5b5b"
 }
 
-error() {
-  github-actions-slack deploy failure
-}
+# Run errorNotification on any ERR, SIGINT, or SIGTERM
+trap "errorNotification" ERR SIGINT SIGTERM
+## END github-actions-slack ##
 
-deploy || error
+# entrypoint deployment custom script...
 ```
+
+See the notification in Slack
