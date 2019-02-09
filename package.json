@@ -9,6 +9,9 @@
   },
   "author": "Eric Shelley <eric@webdesignbakery.com>",
   "license": "MIT",
+  "bin": {
+    "github-actions-slack": "./index.js"
+  },
   "dependencies": {
     "axios": "^0.18.0"
   },
