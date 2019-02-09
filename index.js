@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const axios = require("axios");
+
 /**
  * Send notification to Slack based on GitHub commit
  *
