@@ -4,9 +4,7 @@ This is a simple bash script that sends a formatted message using a GitHub Actio
 
 # Install
 
-    $ curl -o /usr/local/bin/github-actions-slack https://raw.githubusercontent.com/bartimaeus/github-actions-slack/master/notify.sh
-
-    $ chmod +x /usr/local/bin/github-actions-slack
+    $ bash -c "$(curl -fsSL http://bartimae.us/github-actions-slack/setup.sh)"
 
 # Usage
 
@@ -29,9 +27,7 @@ set -e
 ## BEGIN github-actions-slack ##
 errorNotification() {
   # Install github-actions-slack
-  echo "~> Installing github-actions-slack"
-  curl -o /usr/local/bin/github-actions-slack https://raw.githubusercontent.com/bartimaeus/github-actions-slack/master/notify.sh
-  chmod +x /usr/local/bin/github-actions-slack
+  bash -c "$(curl -fsSL http://bartimae.us/github-actions-slack/setup.sh)"
 
   # Send Slack notification
   github-actions-slack ":boom: *Failed* to deploy" "#ff5b5b"
@@ -46,4 +42,18 @@ trap "errorNotification" ERR SIGINT SIGTERM
 
 See the notification in Slack
 
-![Slack Notification](https://s3.amazonaws.com/github-actions-slack/github-actions-slack-notification.png?v2)
+![Slack Notification](https://s3.amazonaws.com/github-actions-slack/github-actions-slack-notification.png?v3)
+
+# Development
+
+Test the script locally using `docker` and `docker-compose`. First, make sure that you have a valid `SLACK_WEBHOOK_URL` in `docker-compose.yml`.
+
+### Build the image
+
+    docker-compose build
+
+### Run the image
+
+    docker-compose up
+
+Your notification should now appear in your Slack channel!
