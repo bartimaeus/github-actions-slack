@@ -46,4 +46,4 @@ trap "errorNotification" ERR SIGINT SIGTERM
 
 See the notification in Slack
 
-![Slack Notification](https://s3.amazonaws.com/github-actions-slack/github-actions-slack-notification.png)
+![Slack Notification](https://s3.amazonaws.com/github-actions-slack/github-actions-slack-notification.png?v2)
