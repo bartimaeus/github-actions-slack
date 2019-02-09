@@ -28,18 +28,10 @@ set -e
 
 ## BEGIN github-actions-slack ##
 errorNotification() {
-  # Install jq
-  which jq || {
-    echo "~> Installing missing package jq"
-    apt update && apt install -y jq
-  }
-
   # Install github-actions-slack
-  which github-actions-slack || {
-    echo "~> Installing github-actions-slack"
-    curl -o /usr/local/bin/github-actions-slack https://raw.githubusercontent.com/bartimaeus/github-actions-slack/master/notify.sh
-    chmod +x /usr/local/bin/github-actions-slack
-  }
+  echo "~> Installing github-actions-slack"
+  curl -o /usr/local/bin/github-actions-slack https://raw.githubusercontent.com/bartimaeus/github-actions-slack/master/notify.sh
+  chmod +x /usr/local/bin/github-actions-slack
 
   # Send Slack notification
   github-actions-slack ":boom: *Failed* to deploy" "#ff5b5b"
@@ -53,3 +45,5 @@ trap "errorNotification" ERR SIGINT SIGTERM
 ```
 
 See the notification in Slack
+
+![Slack Notification](https://s3.amazonaws.com/github-actions-slack/github-actions-slack-notification.png)
