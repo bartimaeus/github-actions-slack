@@ -19,7 +19,7 @@ if [[ -z "$1" ]]; then
 Missing pretext!
 ~> usage: github-actions-slack pretext [color]
 EOF
-	  exit 1
+    exit 1
 else
     PRETEXT=$1
 fi
@@ -59,6 +59,6 @@ payload() {
 }
 
 payload && {
-  # echo "curl -X POST -H \"Content-Type: application/json\" -d \"$JSON\" \"$SLACK_WEBHOOK_URL\""
-  curl -X POST -H "Content-Type: application/json" -d "$JSON" "$SLACK_WEBHOOK_URL"
+    # echo "curl -X POST -H \"Content-Type: application/json\" -d \"$JSON\" \"$SLACK_WEBHOOK_URL\""
+    curl -X POST -H "Content-Type: application/json" -d "$JSON" "$SLACK_WEBHOOK_URL"
 }
