@@ -9,11 +9,6 @@ if [[ -z "$GITHUB_EVENT_PATH" ]]; then
     exit 1
 fi
 
-if [[ -z "$GITHUB_REF" ]]; then
-    echo "Set the GITHUB_REF env variable."
-    exit 1
-fi
-
 if [[ -z "$SLACK_WEBHOOK_URL" ]]; then
     echo "Set the SLACK_WEBHOOK_URL env variable."
     exit 1
@@ -49,7 +44,8 @@ commit_sha=$(echo $commit_id | cut -c 1-7)
 repository_name=$(jq --raw-output .repository.name "$GITHUB_EVENT_PATH")
 repository_icon=$(jq --raw-output .repository.owner.avatar_url "$GITHUB_EVENT_PATH")
 repository_url=$(jq --raw-output .repository.html_url "$GITHUB_EVENT_PATH")
-branch=$(echo ${GITHUB_REF//\/refs\/heads\//})
+ref=$(jq --raw-output .ref "$GITHUB_EVENT_PATH")
+branch=$(echo ${ref//refs\/heads\//})
 branch_url=$(echo "${repository_url}/tree/${branch}")
 
 payload() {

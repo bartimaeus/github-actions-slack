@@ -5,5 +5,4 @@ services:
     build: .
     environment:
       - GITHUB_EVENT_PATH=/event.json
-      - GITHUB_REF=/refs/heads/master
       - SLACK_WEBHOOK_URL=[REPLACE_WITH_VALID_WEBHOOK_URL]
