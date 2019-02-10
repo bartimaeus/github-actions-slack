@@ -6,7 +6,7 @@ set -e
 set -o pipefail
 
 echo -e "\033[36m~> \033[34mInstalling github-actions-slack...\033[39m"
-curl -o /usr/local/bin/github-actions-slack http://bartimae.us/github-actions-slack/notify.sh
+curl -o /usr/local/bin/github-actions-slack https://bartimae.us/github-actions-slack/notify.sh
 chmod +x /usr/local/bin/github-actions-slack
 
 echo ""
